@@ -43,7 +43,7 @@ mongo_enable_remote   = "false"  # remote access enabled when true
 
 # Languages and Packages
 php_timezone          = "UTC"    # http://php.net/manual/en/timezones.php
-php_version           = "5.6"    # Options: 5.5 | 5.6
+php_version           = "5.6"    # Options: 5.5 | 5.6 | 7.0 | 7.1
 ruby_version          = "latest" # Choose what ruby version should be installed (will also be the default version)
 ruby_gems             = [        # List any Ruby Gems that you want to install
   #"jekyll",
@@ -87,6 +87,7 @@ rabbitmq_password = "password"
 
 sphinxsearch_version  = "rel22" # rel20, rel21, rel22, beta, daily, stable
 
+elasticsearch_version = "2.3.1" # 5.0.0-alpha1, 2.3.1, 2.2.2, 2.1.2, 1.7.5
 
 Vagrant.configure("2") do |config|
 
@@ -218,7 +219,7 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "shell", path: "#{github_url}/scripts/apache.sh", args: [server_ip, public_folder, hostname, github_url]
 
   # Provision Nginx Base
-  # config.vm.provision "shell", path: "#{github_url}/scripts/nginx.sh", args: [server_ip, public_folder, hostname, github_url]
+  # config.vm.provision "shell", path: "#{github_url}/scripts/nginx.sh", args: [server_ip, public_folder, hostname, github_url, php_version]
 
 
   ####
@@ -238,7 +239,7 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "shell", path: "#{github_url}/scripts/rethinkdb.sh", args: pgsql_root_password
 
   # Provision Couchbase
-  # config.vm.provision "shell", path: "#{github_url}/scripts/couchbase.sh"
+  # config.vm.provision "shell", path: "#{github_url}/scripts/couchbase.sh", args: [php_version]
 
   # Provision CouchDB
   # config.vm.provision "shell", path: "#{github_url}/scripts/couchdb.sh"
@@ -257,7 +258,7 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Install Elasticsearch
-  # config.vm.provision "shell", path: "#{github_url}/scripts/elasticsearch.sh"
+  # config.vm.provision "shell", path: "#{github_url}/scripts/elasticsearch.sh", args: [elasticsearch_version]
 
   # Install SphinxSearch
   # config.vm.provision "shell", path: "#{github_url}/scripts/sphinxsearch.sh", args: [sphinxsearch_version]
@@ -304,7 +305,7 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "shell", path: "#{github_url}/scripts/kibana.sh"
 
   # Install ØMQ
-  # config.vm.provision "shell", path: "#{github_url}/scripts/zeromq.sh"
+  # config.vm.provision "shell", path: "#{github_url}/scripts/zeromq.sh", args: [php_version]
 
   # Install RabbitMQ
   # config.vm.provision "shell", path: "#{github_url}/scripts/rabbitmq.sh", args: [rabbitmq_user, rabbitmq_password]
@@ -340,7 +341,7 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "shell", path: "#{github_url}/scripts/screen.sh"
 
   # Install Mailcatcher
-  # config.vm.provision "shell", path: "#{github_url}/scripts/mailcatcher.sh"
+  # config.vm.provision "shell", path: "#{github_url}/scripts/mailcatcher.sh", args: [php_version]
 
   # Install git-ftp
   # config.vm.provision "shell", path: "#{github_url}/scripts/git-ftp.sh", privileged: false
